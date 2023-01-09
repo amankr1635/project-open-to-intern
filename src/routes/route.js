@@ -1,10 +1,13 @@
 const express = require('express');
-const { default: mongoose } = require('mongoose');
 const router = express.Router();
-const controller = require('../controllers/controller.js')
+const controller = require('../controllers/controllers')
 
 
-app.
+router.all("/*",function(req,res){
+    res.status(400).send({status : false, msg:"invalid http request"})
+})
+
+
 
 
 
