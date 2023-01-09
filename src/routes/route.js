@@ -3,14 +3,10 @@ const router = express.Router();
 const controller = require('../controllers/controllers')
 
 
+
+
 router.post('/functionup/colleges',controller.createCollege)
-
-
-
 router.post('/functionup/interns',controller.createIntern)
-
-
-
 router.get('/functionup/collegeDetails',controller.collegeDetails)
 
 

@@ -1,12 +1,18 @@
 
 
 const isValidName = function (name) {
-    const nameRegex = /^[a-zA-Z]+$/;
+    const nameRegex = /^[a-zA-Z_ ]+$/;
     return nameRegex.test(name);
 };
 
+// const isValidName = function (name) {
+//     const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z])?[a-zA-Z]*)*$/;
+//     return nameRegex.test(name);
+// };
+
+
 const isValidEmail = function (name) {
-    const emailRegex =/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    const emailRegex =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return emailRegex.test(name);
 };
 

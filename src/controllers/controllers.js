@@ -13,12 +13,14 @@ const createCollege = async function (req, res) {
     if (!data.name) return res.status(400).send({ status: false, msg: "Name is mandatory" })
     if (!data.fullName) return res.status(400).send({ status: false, msg: "Full name is mandatory" })
     if (!data.logoLink) return res.status(400).send({ status: false, msg: "Logo link is mandatory" })
-    if (!validators.isValidName(data.name)) res.status(400).send({ status: false, msg: "enter valid name" })
-    data.name = data.name.toLowerCase()
-    if (!validators.isValidName(data.fullName)) res.status(400).send({ status: false, msg: "enter valid fullName" })
+    if (!validators.isValidName(data.name))return res.status(400).send({ status: false, msg: "enter valid name" })
+    data.name = data.name.toLowerCase().trim()
+    data.fullName =data.fullName.trim()
+    data.logoLink = data.logoLink.trim()
+    // if (!validators.isValidName(data.fullName))return res.status(400).send({ status: false, msg: "enter valid fullName" })
     let findName = await collegeModel.findOne({ name: data.name })
     if (findName) return res.status(400).send({ status: false, msg: "name already taken" })
-    if (!(validators.isValidLink(data.logoLink) && validators.isValidFormat(data.logoLink))) return res.send("invalid logo link")
+    if (!(validators.isValidLink(data.logoLink) && validators.isValidFormat(data.logoLink))) return res.status(400).send({status :false, message:"invalid logo link"})
     let newData = await collegeModel.create(data)
     return res.status(201).send({ status: true, Data: newData })
   }
@@ -36,7 +38,10 @@ const createIntern = async function (req, res) {
     if (!data.email) return res.status(400).send({ sattus: false, message: "Please provide email" });
     if (!data.mobile) return res.status(400).send({ sattus: false, message: "Please provide mobile" });
     if (!data.collegeName) return res.status(400).send({ sattus: false, message: "Please provide collegeName" });
-    data.collegeName = data.collegeName.toLowerCase()
+    data.collegeName = data.collegeName.toLowerCase().trim()
+    data.name = data.name.trim()
+    data.email = data.email.toLowerCase().trim()
+    data.mobile = data.mobile.trim()
     if (!validators.isValidEmail(data.email)) return res.status(400).send({ sattus: false, message: "Invalid email" });
     if (!validators.isValidName(data.name)) return res.status(400).send({ sattus: false, message: "Invalid name" })
     if (!validators.isValidMobile(data.mobile)) return res.status(400).send({ sattus: false, message: "Invalid mobile" });
@@ -74,7 +79,7 @@ const collegeDetails = async function (req, res) {
     if (collegeData.isDeleted == true) return res.status(404).send({ status: false, message: "No college found" })
     collegeData = collegeData.toObject();
 
-    let appliedIntern = await internModel.find({ $and: [{ collegeId: collegeData._id }, { isDeleted: false }] });
+    let appliedIntern = await internModel.find({ $and: [{ collegeId: collegeData._id }, { isDeleted: false }] }).select({name :1,email:1,mobile:1});
     if (!appliedIntern) {
       return res.status(404).send({ message: "no candidate applied" });
     }
