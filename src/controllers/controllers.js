@@ -73,7 +73,7 @@ const collegeDetails = async function (req, res) {
         .status(400)
         .send({ status: false, message: "Enter a collegeName" });
     }
-    let collegeData = await collegeModel.findOne({ name: queryParams.collegeName }).select({ name: 1, fullName: 1, logoLink: 1 });
+    let collegeData = await collegeModel.findOne({ name: queryParams.collegeName }).select({ name: 1, fullName: 1, logoLink: 1 ,isDeleted:1});
     if (!collegeData) {
       return res
         .status(404)
@@ -81,7 +81,6 @@ const collegeDetails = async function (req, res) {
     }
     if (collegeData.isDeleted == true) return res.status(404).send({ status: false, message: "No college found" })
     collegeData = collegeData.toObject();
-
     let appliedIntern = await internModel.find({ $and: [{ collegeId: collegeData._id }, { isDeleted: false }] }).select({name :1,email:1,mobile:1});
     if (!appliedIntern) {
       return res.status(404).send({ message: "no candidate applied" });
@@ -89,6 +88,7 @@ const collegeDetails = async function (req, res) {
     if (appliedIntern.length == 0) collegeData.interns = "No interns yet";
     if (appliedIntern.length != 0) collegeData.interns = appliedIntern;
     delete (collegeData._id)
+    delete (collegeData.isDeleted)
     return res.status(200).send({ data: collegeData });
   } catch (error) {
     return res.status(500).send({ status: false, message: error.message });
