@@ -64,13 +64,16 @@ const createIntern = async function (req, res) {
 
 const collegeDetails = async function (req, res) {
   try {
-    let queryParams = req.query.collegeName;
-    if (!queryParams) {
+    let queryParams = req.query;
+    if(Object.keys(queryParams).length==0){
+      return res.status(400).send({status:false, message: "Enter Query Params"})
+    }
+    if (!queryParams.collegeName) {
       return res
         .status(400)
-        .send({ status: false, message: "Enter a Query params" });
+        .send({ status: false, message: "Enter a collegeName" });
     }
-    let collegeData = await collegeModel.findOne({ name: queryParams }).select({ name: 1, fullName: 1, logoLink: 1 });
+    let collegeData = await collegeModel.findOne({ name: queryParams.collegeName }).select({ name: 1, fullName: 1, logoLink: 1 });
     if (!collegeData) {
       return res
         .status(404)

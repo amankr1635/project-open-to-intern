@@ -5,12 +5,6 @@ const isValidName = function (name) {
     return nameRegex.test(name);
 };
 
-// const isValidName = function (name) {
-//     const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z])?[a-zA-Z]*)*$/;
-//     return nameRegex.test(name);
-// };
-
-
 const isValidEmail = function (name) {
     const emailRegex =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return emailRegex.test(name);
