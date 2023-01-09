@@ -1,6 +1,4 @@
-const { strict } = require("assert");
 const mongoose = require("mongoose")
-const validator = require("mongoose-type-email");
 const ObjectId = mongoose.Schema.Types.ObjectId
 
 const internSchema = new mongoose.Schema({
@@ -9,19 +7,16 @@ const internSchema = new mongoose.Schema({
         required: true
     },
     email:{
-        type:validator,
         unique:true,
         required:true
     },
     mobile:{
         type:Number,
-        min:10,
-        max:10,
         unique:true
     },
     collegeId:{
         type:ObjectId,
-        ref: "college"
+        ref: "collegeData"
     },
     isDeleted:{
         type:Boolean,
@@ -31,7 +26,7 @@ const internSchema = new mongoose.Schema({
 },{timestamps:true})
   
 
-module.exports=mongoose.model("Intern",internSchema)
+module.exports=mongoose.model("InternData",internSchema)
 
 
 
