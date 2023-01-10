@@ -1,6 +1,5 @@
 const internModel = require("../models/internModels");
 const collegeModel = require("../models/collegeModel");
-const mongoose = require("mongoose");
 const validators = require("../validations/validations");
 
 //==============================CREATE COLLEGE=================================================
@@ -30,12 +29,12 @@ const createCollege = async function (req, res) {
     data.logoLink = data.logoLink.trim();
     if(data.logoLink.length==0){
       return res.status(400).send({ status: false, message: "please give a logoLink" });
+    }if (!(validators.isValidLink(data.logoLink) &&validators.isValidFormat(data.logoLink))){
+      return res.status(400).send({ status: false, message: "invalid logo link" });
     }
     let findName = await collegeModel.findOne({name: data.name});
     if (findName){
     return res.status(400).send({ status: false, message: "name already taken" });
-    }if (!(validators.isValidLink(data.logoLink) &&validators.isValidFormat(data.logoLink))){
-      return res.status(400).send({ status: false, message: "invalid logo link" });
     }
     let newData = await collegeModel.create(data);
     return res.status(201).send({ status: true, Data: newData });
