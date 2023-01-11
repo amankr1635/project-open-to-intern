@@ -16,12 +16,12 @@ const isValidMobile = function (name) {
 };
 
 const isValidLink = function (name) {
-    const linkRegex =/(.png|.jpg|.jpeg)$/i;
+    const linkRegex =/(.png|.jpg|.jpeg|.pdf|.ai|.tif|.eps)$/i;
     return linkRegex.test(name);
 };
 
 const isValidFormat = function (name) {
-    const linkRegex =/^http/i;
+    const linkRegex =/^ftp|http|https:\/\/[^ "]+$/;
     return linkRegex.test(name);
 };
 

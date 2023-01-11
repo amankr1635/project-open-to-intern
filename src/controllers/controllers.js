@@ -37,7 +37,7 @@ const createCollege = async function (req, res) {
     return res.status(400).send({ status: false, message: "name already taken" });
     }
     let newData = await collegeModel.create(data);
-    return res.status(201).send({ status: true, Data: newData });
+    return res.status(201).send({ status: true, data: newData });
   } catch (error) {
     return res.status(500).send({ status: false, message: error.message });
   }
@@ -88,13 +88,13 @@ const createIntern = async function (req, res) {
     if (internByMobile){
       return res.status(400).send({ status: false, message: "mobile is already in use" });
     }
-    let college = await collegeModel.findOne({ name: data.collegeName});
+    let college = await collegeModel.findOne({$and :[{ name: data.collegeName},{isDeleted:false}]});
     if (!college){
       return res.status(404).send({ status: false, message: "No such college" });
     }
     data.collegeId = college._id;
     const createdIntern = await internModel.create(data);
-    res.status(201).send({ satus: true, data: createdIntern });
+    res.status(201).send({ status: true, data: createdIntern });
   } catch (error) {
     res.status(500).send({ status: false, message: error.message });
   }
@@ -121,7 +121,7 @@ const collegeDetails = async function (req, res) {
     if (appliedIntern.length != 0) collegeData.interns = appliedIntern;
     delete collegeData._id;
     delete collegeData.isDeleted;
-    return res.status(200).send({ data: collegeData });
+    return res.status(200).send({status:true, data: collegeData });
   } catch (error) {
     return res.status(500).send({ status: false, message: error.message });
   }
