@@ -7,9 +7,7 @@ const route = require('./routes/route');
 
 app.use(express.json());
 app.use(multer().any())
-mongoose.connect("mongodb+srv://sandy_varanasi:sRzKkk5zN4u6uAZG@sandy-clusture.eimj9vg.mongodb.net/group13Database", {
-    useNewUrlParser: true
-})
+mongoose.connect("mongodb+srv://Amankr:pwwELCe59UIUh9mj@cluster0.oxwexg5.mongodb.net/project-urlShortner")
 .then(()=>console.log("Mongo DB is connected"))
 .catch(err=> console.log(err))
 
