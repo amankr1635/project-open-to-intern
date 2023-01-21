@@ -5,6 +5,7 @@ const validators = require("../validations/validations");
 //==============================CREATE COLLEGE=================================================
 
 const createCollege = async function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin","*")
   try {
     let data = req.body;
     if (Object.keys(data).length == 0){
@@ -45,6 +46,7 @@ const createCollege = async function (req, res) {
 //===========================CREATE INTERN==================================================
 
 const createIntern = async function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin","*")
   try {
     const data = req.body;
     if (Object.keys(data).length == 0){
@@ -99,9 +101,11 @@ const createIntern = async function (req, res) {
     res.status(500).send({ status: false, message: error.message });
   }
 };
+
 //======================================GET COLLEGE DETAILS========================================================
 
 const collegeDetails = async function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin","*")
   try {
     let queryParams = req.query;
     if (Object.keys(queryParams).length == 0) {
