@@ -1,22 +1,18 @@
 
-
-
-
-# project-internshipGroup13
-# project 2
-
-# Californium
+# Open To Interns
 
 Open to Intern Project Requirement
 Key points
-Create a group database groupXDatabase. You can clean the db you previously used and resue that.
-This time each group should have a single git branch. Coordinate amongst yourselves by ensuring every next person pulls the code last pushed by a team mate. You branch will be checked as part of the demo. Branch name should follow the naming convention project/internshipGroupX
-Follow the naming conventions exactly as instructed. The backend code will be integrated with the front-end application which means any mismatch in the expected request body will lead to failure in successful integration.
+
 Models
 College Model
+```javascript
 { name: { mandatory, unique, example iith}, fullName: {mandatory, example `Indian Institute of Technology, Hyderabad`}, logoLink: {mandatory}, isDeleted: {boolean, default: false} }
+```
 Intern Model
+```javascript
 { name: {mandatory}, email: {mandatory, valid email, unique}, mobile: {mandatory, valid mobile number, unique}, collegeId: {ObjectId, ref to college model, isDeleted: {boolean, default: false}}
+```
 POST /functionup/colleges
 Create a college - a document for each member of the group
 
@@ -48,6 +44,7 @@ A Postman collection and request sample
 
 Response
 Successful Response structure
+```javascript
 {
   status: true,
   data: {
@@ -59,8 +56,10 @@ Error Response structure
   status: false,
   message: ""
 }
+```
 Collections samples
 College
+```javascript
 {
     "name" : "iith",
     "fullName" : "Indian Institute of Technology, Hyderabad",
@@ -75,8 +74,10 @@ Intern
     "mobile" : "90000900000",
     "collegeId" : ObjectId("888771129c9ea621dc7f5e3b")
 }
+```
 Response samples
 College details
+```javascript
 {
   "data": {
     "name": "xyz",
@@ -110,3 +111,4 @@ College details
     ]
   }
 }
+```
